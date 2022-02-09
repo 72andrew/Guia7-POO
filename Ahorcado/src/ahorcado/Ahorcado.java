@@ -13,7 +13,7 @@ public class Ahorcado {
     private boolean[] descubiertos;
     private int intentosMaximos;
     private int letrasEncontradas;
-    private char[] abecedario;
+    final private char[] abecedario;
     private boolean[] abecedarioBoolean;
 
     public Ahorcado() {
@@ -187,6 +187,21 @@ public class Ahorcado {
                 break;
         }
     }
+    
+    public void mostrarAbecedario(){
+        for(char i:abecedario){
+            System.out.printf("%c ",i);
+        }
+        System.out.println("");
+        for(boolean i:abecedarioBoolean){
+            if(i){
+                System.out.printf("X ");
+            }else{
+                System.out.printf("  ");
+            }
+        }
+        System.out.println("");
+    }
 
     public void juego() {
         Scanner entrada = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
@@ -221,6 +236,9 @@ public class Ahorcado {
             abecedarioBoolean[indiceLetra]=true;
             System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             //mostrar ABECEDARIO ACA 
+            System.out.println("Letras Usadas\n");
+            mostrarAbecedario();
+            System.out.println("");
             buscar(letraIngresada); //avisa que se encontro la letra y la posicion
             if (!encontradas(letraIngresada)) {
                 intentosMaximos--;
@@ -238,6 +256,11 @@ public class Ahorcado {
         }
         if (intentosMaximos == 0) {
             System.out.println("\nPERDISTE :(");
+            System.out.printf("LA PALABRA ERA ");
+            for (char i:palabra) {
+                System.out.printf("%c",i);     
+            }
+            System.out.println("");
         } else {
             System.out.println("\nGANASTE!!");
         }
