@@ -13,11 +13,16 @@ public class Ahorcado {
     private boolean[] descubiertos;
     private int intentosMaximos;
     private int letrasEncontradas;
+    private char[] abecedario;
+    private boolean[] abecedarioBoolean;
 
     public Ahorcado() {
+        this.abecedario = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
     }
 
     public Ahorcado(char[] palabra, int intentosMaximos, int letrasEncontradas) {
+        this.abecedario = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
         this.palabra = palabra;
         this.intentosMaximos = intentosMaximos;
         this.letrasEncontradas = letrasEncontradas;
@@ -57,7 +62,10 @@ public class Ahorcado {
             palabra[i] = palabraString.charAt(i);
             descubiertos[i] = false;
         }
-
+        abecedarioBoolean = new boolean[abecedario.length];
+        for (int i = 0; i < abecedario.length; i++) {
+            abecedarioBoolean[i] = false;
+        }
         //System.out.println("Ingrese la Cantidad Maxima de intentos");
         intentosMaximos = 6; //entrada.NextInt();
         letrasEncontradas = 0;
@@ -71,7 +79,7 @@ public class Ahorcado {
         boolean encontrada = false;
         for (int i = 0; i < longitud(); i++) {
             if (palabra[i] == letra) {
-                System.out.println("Letra encontras en posicion " + (i + 1));
+                System.out.println("Letra encontrada en posicion " + (i + 1));
                 descubiertos[i] = true;
                 encontrada = true;
 
@@ -99,6 +107,7 @@ public class Ahorcado {
     }
 
     public void mostrarLetras() {
+        System.out.printf(" ");
         for (int i = 0; i < longitud(); i++) {
             if (descubiertos[i]) {
                 System.out.printf("%c", palabra[i]);
@@ -182,15 +191,36 @@ public class Ahorcado {
     public void juego() {
         Scanner entrada = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
         char letraIngresada;
+        int indiceLetra = 0;
         crearJuego();
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.printf("la palabra tiene %d caracteres\n", longitud());
         while (intentosMaximos > 0) {
 
-            System.out.printf("la palabra tiene %d caracteres\n", longitud());
             intentos(); //muestra la cantidad de intentos restantes
             System.out.println("Ingrese una letra");
             letraIngresada = entrada.next().toUpperCase().charAt(0);
+            for (int i = 0; i < abecedario.length; i++) {
+                if (letraIngresada == abecedario[i]) {
+                    indiceLetra = i;
+                    
+                }
+
+            }
+            while (abecedarioBoolean[indiceLetra]) {
+                System.out.printf("LA LETRA YA FUE UTILIZADA\nVuelva a ingresar letra\n");
+                letraIngresada = entrada.next().toUpperCase().charAt(0);
+                for (int i = 0; i < abecedario.length; i++) {
+                    if (letraIngresada == abecedario[i]) {
+                        indiceLetra = i;
+
+                    }
+
+                }
+            }
+            abecedarioBoolean[indiceLetra]=true;
             System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            //mostrar ABECEDARIO ACA 
             buscar(letraIngresada); //avisa que se encontro la letra y la posicion
             if (!encontradas(letraIngresada)) {
                 intentosMaximos--;
@@ -200,6 +230,7 @@ public class Ahorcado {
             System.out.println("");
             mostrarLetras();
             System.out.println("");
+            
             if (letrasEncontradas == longitud()) {
                 break;
             }
