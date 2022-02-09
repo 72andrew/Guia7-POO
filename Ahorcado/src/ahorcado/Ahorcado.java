@@ -223,7 +223,7 @@ public class Ahorcado {
 
             }
             while (abecedarioBoolean[indiceLetra]) {
-                System.out.printf("LA LETRA YA FUE UTILIZADA\nVuelva a ingresar letra\n");
+                System.out.printf("LETRA REPETIDA: Vuelva a ingresarla\n");
                 letraIngresada = entrada.next().toUpperCase().charAt(0);
                 for (int i = 0; i < abecedario.length; i++) {
                     if (letraIngresada == abecedario[i]) {
