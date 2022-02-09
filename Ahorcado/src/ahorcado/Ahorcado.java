@@ -195,8 +195,11 @@ public class Ahorcado {
             if (!encontradas(letraIngresada)) {
                 intentosMaximos--;
             }
+            System.out.println("");
             mostrarDibujo(intentosMaximos);
+            System.out.println("");
             mostrarLetras();
+            System.out.println("");
             if (letrasEncontradas == longitud()) {
                 break;
             }
